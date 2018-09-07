@@ -1,0 +1,227 @@
+<!DOCTYPE html">
+<!-- saved from url=(0035)http://10.1.3.10:8080/bugcount.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>软件产品缺陷统计</title>
+<style type="text/css">
+input {
+	text-align: center;
+	font-size: 20px;
+	font-family: "微软雅黑";
+}
+
+body,td,th {
+	font-weight: bold;
+}
+</style>
+<script type="text/javascript"> 
+  function sum() 
+  { 
+     var O1 = document.getElementById("11"); 
+     var O2 = document.getElementById("12"); 
+     var O3 = document.getElementById("13"); 
+     var O4 = document.getElementById("14"); 
+     var O5 = document.getElementById("15");
+     var S1 = document.getElementById("s1");
+	 S1.value = parseInt(O1.value) + parseInt(O2.value) + parseInt(O3.value) + parseInt(O4.value) + parseInt(O5.value); 
+
+     var AO1 = document.getElementById("21"); 
+     var AO2 = document.getElementById("22"); 
+     var AO3 = document.getElementById("23"); 
+     var AO4 = document.getElementById("24"); 
+     var AO5 = document.getElementById("25");
+     var S2 = document.getElementById("s2");
+	 S2.value = parseInt(AO1.value) + parseInt(AO2.value) + parseInt(AO3.value) + parseInt(AO4.value) + parseInt(AO5.value); 
+
+     var F1 = document.getElementById("31"); 
+     var F2 = document.getElementById("32"); 
+     var F3 = document.getElementById("33"); 
+     var F4 = document.getElementById("34"); 
+     var F5 = document.getElementById("35");
+     var S3 = document.getElementById("s3");
+	 S3.value = parseInt(F1.value) + parseInt(F2.value) + parseInt(F3.value) + parseInt(F4.value) + parseInt(F5.value);
+
+     var C1 = document.getElementById("41"); 
+     var C2 = document.getElementById("42"); 
+     var C3 = document.getElementById("43"); 
+     var C4 = document.getElementById("44"); 
+     var C5 = document.getElementById("45");
+     var S4 = document.getElementById("s4");
+	 S4.value = parseInt(C1.value) + parseInt(C2.value) + parseInt(C3.value) + parseInt(C4.value) + parseInt(C5.value);
+     
+     var G1 = document.getElementById("51"); 
+     var G2 = document.getElementById("52"); 
+     var G3 = document.getElementById("53"); 
+     var G4 = document.getElementById("54"); 
+     var G5 = document.getElementById("55");
+     var S5 = document.getElementById("s5");
+	 S5.value = parseInt(G1.value) + parseInt(G2.value) + parseInt(G3.value) + parseInt(G4.value) + parseInt(G5.value);
+     
+     var S11 = document.getElementById("s11");
+     var S12 = document.getElementById("s12");
+     var S13 = document.getElementById("s13");
+     var S14 = document.getElementById("s14");
+     var S15 = document.getElementById("s15");
+     var S6 = document.getElementById("s6");
+     
+     S11.value = parseInt(O1.value) + parseInt(AO1.value) + parseInt(F1.value) + parseInt(C1.value) + parseInt(G1.value);
+     S12.value = parseInt(O2.value) + parseInt(AO2.value) + parseInt(F2.value) + parseInt(C2.value) + parseInt(G2.value);
+     S13.value = parseInt(O3.value) + parseInt(AO3.value) + parseInt(F3.value) + parseInt(C3.value) + parseInt(G3.value);
+     S14.value = parseInt(O4.value) + parseInt(AO4.value) + parseInt(F4.value) + parseInt(C4.value) + parseInt(G4.value);
+     S15.value = parseInt(O5.value) + parseInt(AO5.value) + parseInt(F5.value) + parseInt(C5.value) + parseInt(G5.value);
+     S6.value = parseInt(S1.value) + parseInt(S2.value) + parseInt(S3.value) + parseInt(S4.value) + parseInt(S5.value);
+     
+     var BugTotalValue = document.getElementById("BugTotalValue");
+     var BugSeverity = document.getElementById("BugSeverity");
+     var BugSolutionRate = document.getElementById("BugSolutionRate");
+     
+     BugTotalValue.value = ((parseInt(S11.value)-parseInt(G1.value))*3 + (parseInt(S12.value)-parseInt(G2.value))*2 + (parseInt(S13.value)-parseInt(G3.value))*1 + (parseInt(S14.value)-parseInt(G4.value))*0.5).toFixed(2);
+     BugSeverity.value = ((parseInt(BugTotalValue.value) / (parseInt(S6.value) - parseInt(S15.value) - parseInt(S5.value) + parseInt(G5.value)))*100).toFixed(2);
+     BugSeverity.value = BugSeverity.value + "%";
+     BugSolutionRate.value = (((parseInt(S4.value) - parseInt(C5.value)) / (parseInt(S6.value) - parseInt(S15.value) - parseInt(S5.value) + parseInt(G5.value)))*100).toFixed(2);
+     BugSolutionRate.value = BugSolutionRate.value + "%";
+  } 
+</script>
+</head>
+<script language="javascript">
+function editable(select1){
+   if(select1.value == ""){
+      var newvalue = prompt("请输入项目名","");
+      if(newvalue){
+         addSelected(select1,newvalue,newvalue);
+      }
+   }
+}
+
+function addSelected(fld1,value1,text1){
+    if (document.all)    {
+            var Opt = fld1.document.createElement("OPTION");
+            Opt.text = text1;
+            Opt.value = value1;
+            fld1.options.add(Opt);
+            Opt.selected = true;
+    }else{
+            var Opt = new Option(text1,value1,false,false);
+            Opt.selected = true;
+            fld1.options[fld1.options.length] = Opt;
+    }
+}
+</script>   
+<body>
+<form id="form1" name="form1" method="post" action="/bugcount.html">
+	<table width="300" height="100" cellspacing="0" border="1">
+	<tbody>
+	<tr>
+	  <td width="130" bgcolor="#CCCCCC"><div align="center">项目名称</div></td>
+      <td width="100" bgcolor="#CCCCCC"><div align="center">操作系统</div></td>
+      <td width="100" bgcolor="#CCCCCC"><div align="center">测试版本</div></td>
+      <td width="100" bgcolor="#CCCCCC"><div align="center">获取数据</div></td>
+	</tr>
+	<tr>
+	<td><div align="center">
+			<select name="project" onChange="editable(this);">
+				<option value="value1">测试项目1</option>
+				<option value="">找不到项目请点击输入</option>
+			</select>
+	</div></td>
+	<td><div align="center">		
+			<select name="system">
+				<option value="win732">WIN7 32</option>
+				<option value="win764">WIN7 64</option>
+				<option value="winxp">WINXP</option>
+				<option value="win832">WIN8 32</option>
+				<option value="win864">WIN8 64</option>
+				<option value="win1032">WIN10 32</option>
+				<option value="win1064">WIN10 64</option>
+				<option value="linux">Linux</option>
+				<option value="android">Android</option>
+			</select>
+	</div></td>
+	
+	<td><div align="left-side"><input type="text"  name="version"></div></td>	
+	
+	<td><div align="center"><input type="submit" value="获取缺陷数据" id="getbugData"></div></td>	
+	</tr>
+	</tbody></table>
+  <br>
+  <table width="800" height="387" cellspacing="0" border="1">
+    <tbody><tr>
+      <td colspan="7"><div align="center"><font size="5" color="blue">软件产品缺陷指标计算模板</font></div></td>
+    </tr>
+    <tr>
+      <td width="140" bgcolor="#CCCCCC"><div align="center">状态/严重级别</div></td>
+      <td width="100" bgcolor="#CCCCCC"><div align="center">致命</div></td>
+      <td width="100" bgcolor="#CCCCCC"><div align="center">严重</div></td>
+      <td width="100" bgcolor="#CCCCCC"><div align="center">一般</div></td>
+      <td width="100" bgcolor="#CCCCCC"><div align="center">警告</div></td>
+      <td width="100" bgcolor="#CCCCCC"><div align="center">建议</div></td>
+      <td width="100" bgcolor="#FFFFCC"><div align="center">合计</div></td>
+    </tr>
+    <tr>
+      <td bgcolor="#CCCCCC"><div align="center">打开</div></td>
+      <td><div align="center"><input name="11" type="text" id="11" onchange="sum()" value="0" size="4" maxlength="4"></div></td>
+      <td><div align="center"><input type="text" name="12" id="12" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input type="text" name="13" id="13" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input type="text" name="14" id="14" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input type="text" name="15" id="15" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input name="s1" type="text" id="s1" size="4" maxlength="4" value="0" readonly="readonly"></div></td>
+    </tr>
+    <tr>
+      <td bgcolor="#CCCCCC"><div align="center">重新打开</div></td>
+      <td><div align="center"><input type="text" name="21" id="21" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input type="text" name="22" id="22" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input type="text" name="23" id="23" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input type="text" name="24" id="24" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input type="text" name="25" id="25" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input name="s2" type="text" id="s2" size="4" maxlength="4" value="0" readonly="readonly"></div></td>
+    </tr>
+    <tr>
+      <td bgcolor="#CCCCCC"><div align="center">修复</div></td>
+      <td><div align="center"><input type="text" name="31" id="31" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input type="text" name="32" id="32" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input type="text" name="33" id="33" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input type="text" name="34" id="34" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input type="text" name="35" id="35" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input name="s3" type="text" id="s3" size="4" maxlength="4" value="0" readonly="readonly"></div></td>
+    </tr>
+    <tr>
+      <td bgcolor="#CCCCCC"><div align="center">关闭</div></td>
+      <td><div align="center"><input type="text" name="41" id="41" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input type="text" name="42" id="42" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input type="text" name="43" id="43" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input type="text" name="44" id="44" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input type="text" name="45" id="45" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input name="s4" type="text" id="s4" size="4" maxlength="4" value="0" readonly="readonly"></div></td>
+    </tr>
+    <tr>
+      <td bgcolor="#CCCCCC"><div align="center">挂起</div></td>
+      <td><div align="center"><input type="text" name="51" id="51" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input type="text" name="52" id="52" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input type="text" name="53" id="53" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input type="text" name="54" id="54" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input type="text" name="55" id="55" size="4" maxlength="4" onchange="sum()" value="0"></div></td>
+      <td><div align="center"><input name="s5" type="text" id="s5" size="4" maxlength="4" value="0" readonly="readonly"></div></td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><div align="center">合计</div></td>
+      <td><div align="center"><input name="s11" type="text" id="s11" size="4" maxlength="4" value="0" readonly="readonly"></div></td>
+      <td><div align="center"><input name="s12" type="text" id="s12" size="4" maxlength="4" value="0" readonly="readonly"></div></td>
+      <td><div align="center"><input name="s13" type="text" id="s13" size="4" maxlength="4" value="0" readonly="readonly"></div></td>
+      <td><div align="center"><input name="s14" type="text" id="s14" size="4" maxlength="4" value="0" readonly="readonly"></div></td>
+      <td><div align="center"><input name="s15" type="text" id="s15" size="4" maxlength="4" value="0" readonly="readonly"></div></td>
+      <td><div align="center"><input name="s6" type="text" id="s6" size="4" maxlength="4" value="0" readonly="readonly"></div></td>
+    </tr>
+    <tr>
+      <td><div align="center">缺陷总值</div></td>
+      <td><div align="center"><input name="BugTotalValue" type="text" id="BugTotalValue" value="0" size="8" style="background-color: #FF0;" readonly="readonly"></div></td>
+      <td><div align="center">缺陷严重性</div></td>
+      <td><div align="center"><input name="BugSeverity" type="text" id="BugSeverity" value="0.00%" size="8" style="background-color: #FF0;" readonly="readonly"></div></td>
+      <td><div align="center">缺陷解决率</div></td>
+      <td><div align="center"><input name="BugSolutionRate" type="text" id="BugSolutionRate" value="0.00%" size="8" style="background-color: #FF0;" readonly="readonly"></div></td>
+      <td><div align="center"></div></td>
+    </tr>
+  </tbody></table>
+</form>
+
+
+</body></html>
